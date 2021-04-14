@@ -88,7 +88,7 @@ class HomeCheckinCell: UICollectionViewCell {
         label.font = UIFont.Poppins(.semibold, size: 18)
         label.textColor = UIColor(red: 46/255, green: 56/255, blue: 46/255, alpha: 1.0)
         label.textAlignment = .left
-        label.text = "stress level"
+        label.text = "happiness"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

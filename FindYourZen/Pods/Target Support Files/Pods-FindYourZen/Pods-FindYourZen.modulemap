@@ -1,0 +1,6 @@
+framework module Pods_FindYourZen {
+  umbrella header "Pods-FindYourZen-umbrella.h"
+
+  export *
+  module * { export * }
+}

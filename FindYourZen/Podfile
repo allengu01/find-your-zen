@@ -1,0 +1,22 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+workspace 'FindYourZen'
+
+target 'FindYourZen' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for FindYourZen
+  pod 'Charts'
+
+  target 'FindYourZenTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'FindYourZenUITests' do
+    # Pods for testing
+  end
+
+end

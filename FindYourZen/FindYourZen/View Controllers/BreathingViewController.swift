@@ -14,12 +14,8 @@ class BreathingViewController: CustomViewController, CAAnimationDelegate {
     let shapeLayer = CAShapeLayer()
     var width: Double!
     var height: Double!
-    var initialRadius: Double!
     var centerX: Double!
     var centerY: Double!
-    let initialRadiusRatio = 0.6
-    var innerBound: Double!
-    var outerBound: Double!
     var animationID: Int = 0
     var newPath: UIBezierPath!
     
@@ -30,21 +26,12 @@ class BreathingViewController: CustomViewController, CAAnimationDelegate {
         return button
     }()
     
-    lazy var tempLabel: UILabel = {
-        let label = UILabel()
-        label.text = "HERE"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         width = Double(view.bounds.width)
         height = Double(view.bounds.height)
         centerX = width/2
         centerY = height/2
-        innerBound = 0.4 * width / 2
-        outerBound = 0.8 * width / 2
         setup()
     }
     
@@ -90,7 +77,7 @@ class BreathingViewController: CustomViewController, CAAnimationDelegate {
         var points: [Point] = []
         for i in 0..<numberOfPoints {
             let angle: Double = angleInterval * Double(i)
-            let d: Double = radius + Double.random(in: -beta * radius/6 ..< beta * radius/6)
+            let d: Double = radius + Double.random(in: -beta * radius/8 ..< beta * radius/8)
             let point: Point = Point.fromPolar(centerX: centerX, centerY: centerY, radius: d, theta: angle)
             points.append(point)
         }
@@ -151,19 +138,21 @@ class BreathingViewController: CustomViewController, CAAnimationDelegate {
     }
     
     func breatheIn() {
-        let newPoints = generatePoints(numberOfPoints: 6, beta: 0.7)
+        let newPoints = generatePoints(numberOfPoints: 6, beta: 0.65)
         newPath = createBezierPath(points: newPoints)
-        animate(startPath: shapeLayer.path!, endPath: newPath.cgPath, duration: 4.0)
+        animate(startPath: shapeLayer.path!, endPath: newPath.cgPath, duration: 3.0)
     }
     
     func hold() {
-        animate(startPath: shapeLayer.path!, endPath: shapeLayer.path!, duration: 7.0)
+        let newPoints = generatePoints(numberOfPoints: 6, beta: 0.65)
+        newPath = createBezierPath(points: newPoints)
+        animate(startPath: shapeLayer.path!, endPath: newPath.cgPath, duration: 3.0)
     }
     
     func breatheOut() {
         let newPoints = generatePoints(numberOfPoints: 6, beta: 0.4)
         newPath = createBezierPath(points: newPoints)
-        animate(startPath: shapeLayer.path!, endPath: newPath.cgPath, duration: 8.0)
+        animate(startPath: shapeLayer.path!, endPath: newPath.cgPath, duration: 6.0)
     }
     
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
